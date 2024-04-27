@@ -6,7 +6,7 @@
         {% for object in product_list %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
-                <img src="{{ object.photo | media_filter }}">
+                <img src="{{ object.image | media_filter }}">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ object.name.title }}</h4>
                 </div>
