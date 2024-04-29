@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from catalog.views import products, product_detail
+from catalog.views import ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView
+
+
+class ProductDeleteView:
+    pass
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('catalog.urls')),
-    path('contacts/', include('catalog.urls')),
-    path('products/', products, name='products'),
-    path('products/<int:pk>', product_detail, name='product_detail')
+    path('', include(('catalog.urls', 'catalog'), namespace='catalog')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
