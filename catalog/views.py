@@ -1,22 +1,25 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from pytils.translit import slugify
-from .models import *
+from .models import Product, BlogWriting
 
 
-def home(request):
-    return render(request, 'catalog/home.html')
+class HomeTemplateView(TemplateView):
+    template_name = 'catalog/home.html'
 
 
-def contacts(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        message = request.POST.get('message')
-        print(f'{name} ({email}): {message}')
-    return render(request, 'catalog/contacts.html')
+class ContactTemplateView(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+    def contacts(self, request):
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            message = request.POST.get('message')
+            print(f'{name} ({email}): {message}')
+            return render(request, self.template_name)
 
 
 class ProductListView(ListView):
