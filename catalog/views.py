@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from pytils.translit import slugify
 from .models import Product, BlogWriting
+from .services import get_products_from_cache
 
 
 class HomeTemplateView(TemplateView):
@@ -24,6 +25,9 @@ class ContactTemplateView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_products_from_cache()
 
 
 class ProductDetailView(DetailView):
